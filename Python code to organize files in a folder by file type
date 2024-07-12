@@ -1,0 +1,30 @@
+import os
+import shutil
+
+def organize_files_by_type(directory):
+    # Get list of all files in the directory
+    files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    
+    # Iterate over each file
+    for file in files:
+        # Get the file extension
+        file_extension = file.split('.')[-1]
+        
+        # Create a new folder name based on the file extension
+        folder_name = file_extension.upper() + "_Files"
+        folder_path = os.path.join(directory, folder_name)
+        
+        # Create the folder if it doesn't exist
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        
+        # Move the file into the appropriate folder
+        shutil.move(os.path.join(directory, file), os.path.join(folder_path, file))
+
+if __name__ == "__main__":
+    # Specify the directory to organize
+    directory_to_organize = input("Enter the path of the directory to organize: ")
+    
+    # Organize the files in the specified directory
+    organize_files_by_type(directory_to_organize)
+    print(f"Files in {directory_to_organize} have been organized by type.")
